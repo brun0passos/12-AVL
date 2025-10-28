@@ -278,3 +278,41 @@ void buscarElementoArvore(NO* no, int valor) {
     else
         buscarElementoArvore(no->dir, valor);
 }
+
+NO* girarDireita(NO* y) {
+    // Passo 1: guardar o filho à esquerda de y
+    NO* x = y->esq;
+
+    // Passo 2: guardar o filho direito de x (vai virar o filho esquerdo de y)
+    NO* T2 = x->dir;
+
+    // Passo 3: realizar a rotação
+    x->dir = y;
+    y->esq = T2;
+
+    // Passo 4: recalcular alturas
+    y->altura = maior(alturaNo(y->esq), alturaNo(y->dir)) + 1;
+    x->altura = maior(alturaNo(x->esq), alturaNo(x->dir)) + 1;
+
+    // Passo 5: retornar o novo nó raiz da subárvore
+    return x;
+}
+
+NO* girarEsquerda(NO* x) {
+    // Passo 1: guardar o filho à direita de x
+    NO* y = x->dir;
+
+    // Passo 2: guardar o filho esquerdo de y (vai virar o filho direito de x)
+    NO* T2 = y->esq;
+
+    // Passo 3: realizar a rotação
+    y->esq = x;
+    x->dir = T2;
+
+    // Passo 4: recalcular alturas
+    x->altura = maior(alturaNo(x->esq), alturaNo(x->dir)) + 1;
+    y->altura = maior(alturaNo(y->esq), alturaNo(y->dir)) + 1;
+
+    // Passo 5: retornar o novo nó raiz da subárvore
+    return y;
+}
